@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none
+}
+
+h1, h3{
+    padding: 1rem;
+    text-align: center;
+}
+
+h2{
+    font-size: 36px;
+}
+
+p{
+    border-bottom: 1px solid black;
+}
