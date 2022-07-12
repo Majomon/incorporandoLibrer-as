@@ -5,6 +5,11 @@
     text-decoration: none
 }
 
+body{
+    width: 100%;
+    background: url(../assets/fondo-acuarela.jpg);
+    background-size: cover;
+}
 h1, h3{
     padding: 1rem;
     text-align: center;
@@ -16,4 +21,15 @@ h2{
 
 p{
     border-bottom: 1px solid black;
+}
+
+.contenedor-index{
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+}
+
+.registro{
+    background-color: rgb(152, 187, 70);
+    border-radius: 5%;
 }

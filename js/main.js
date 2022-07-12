@@ -1,16 +1,5 @@
-/* >> Consigna: Optimizarás tu proyecto final a través de la puesta en práctica de lo visto en esta clase según sea conveniente en cada caso.
-
->>Aspectos a incluir en el entregable:
-Operador Ternario / AND / OR. Busca estructuras condicionales simples en tu proyecto y simplifícalas utilizando operador ternario u operadores lógicos AND y OR.
-Optimización. Con lo visto en clase, optimiza la asignación condicional de variables.
-Desestructuración. Aplica la desestructuración según corresponda para recuperar propiedades de objetos con claridad y rapidez.
-Spread. Usa el operador spread para replicar objetos o arrays o, también, para mejorar la lógica de tus funciones.
- */
-
-
-/* Asignando ID */
-
-let btnGuardar = document.querySelector("#btnGuardar"),
+let btnRegistrarse = document.querySelector("#btnRegistrarse"),
+    btnLogin = document.querySelector("#btnLogin"),
     check = document.querySelector("#check");
 
 const nombre = document.querySelector("#nombre"),
@@ -18,7 +7,10 @@ const nombre = document.querySelector("#nombre"),
     password = document.querySelector("#password"),
     p = document.querySelector("p");
 
-btnGuardar.innerText = "Registrarse"
+
+
+    btnRegistrarse.innerText = "Registrarse"
+    btnLogin.innerText = "Ya estas registrado?"
 
 
 /* Declarando Arrays de objetos */
@@ -31,7 +23,11 @@ function guardar(valor) {
     let user = { uNombre: nombre.value, uEmail: email.value, uPassword: password.value };
 
     if (user.uNombre == "" || user.uEmail == "" || user.uPassword == "") {
-        campoObligatorio.innerText = "Complete todos los campos";
+        Swal.fire({
+            icon: 'error',
+            title: ':C',
+            text: 'Complete todos los campos por favor!',
+        })
         return;
     } else {
         let { uNombre: nombre, uEmail: email } = user
@@ -40,38 +36,26 @@ function guardar(valor) {
             clientesSessionStorage.push(user)
             sessionStorage.setItem("usuario", JSON.stringify(clientesSessionStorage))
 
-            let html;
-            html = `
-                    <div class="col s4 m3">
-                        <div>
-                            <div class="d-flex flex-column align-items-center justify-content-between p-5 m-5">
-                                <h2>Bienvenido ${nombre}</h2>
-                                <h4>Gracias por registrarte </h4>
-                                <p>El email de registro es: $${email}</p>
-                            </div>
-                        </div>
-                    </div>`;
+            Toastify({
 
-            contenedor.innerHTML += html;
+                text: "Gracias por registrarse",
+
+                duration: 5000
+
+            }).showToast();
         }
         if (valor === "localStorage") {
             /* Creando Array de objetos */
             clientesLocalStorage.push(user)
             localStorage.setItem("usuario", JSON.stringify(clientesLocalStorage))
+            Toastify({
 
-            let html;
-            html = `
-                    <div class="col s4 m3">
-                        <div>
-                            <div class="d-flex flex-column align-items-center justify-content-between p-5 m-5">
-                                <h2>Bienvenido ${nombre}</h2>
-                                <h4>Gracias por registrarte </h4>
-                                <p class="p-2 m-2">El email de registro es: ${email}</p>
-                            </div>
-                        </div>
-                    </div>`;
+                text: "Gracias por registrarse",
 
-            contenedor.innerHTML += html;
+                duration: 5000
+
+            }).showToast();
+
         }
     }
 }
@@ -82,21 +66,22 @@ function recuperoDatos(datos) {
         nombre.value = datos.uNombre;
         email.value = datos.uEmail;
         password.value = datos.uPassword;
-        btnGuardar.innerText = "Registro Exitoso"
     }
 }
 
 recuperoDatos(JSON.parse(localStorage.getItem("persona")));
 
 
-btnGuardar.addEventListener("click", (event) => {
+btnRegistrarse.addEventListener("click", (event) => {
     console.log(event.target);
     event.preventDefault()
-
-    check.checked ? guardar("localStorage") :guardar("sessionStorage")
-/*     if (check.checked) {
-        guardar("localStorage")
-    } else {
-        guardar("sessionStorage")
-    } */
+    check.checked ? guardar("localStorage") : guardar("sessionStorage")
 });
+
+
+
+btnLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "./login.html";
+});
+
